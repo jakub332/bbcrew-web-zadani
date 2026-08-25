@@ -1,8 +1,10 @@
 # BBCREW — Zadání webu (pro vývojáře)
 
-> **Verze:** 1.0 · 25. 8. 2026
+> **Verze:** 1.1 · 25. 8. 2026 — doplněn interaktivní náhled (`nahled.html`), reálné fotky z IG a sekce Animace a interakce
 > **Kontakt za klienta:** Jakub Richter — jakubrichter332@gmail.com
 > **Cíl:** Jednostránkový web pro BBCREW (@burgerbycrew) — smash burger pop-up crew z Prahy. Dvě hlavní úlohy: (1) přivést lidi na Instagram a na eventy, (2) sbírat **poptávky na catering** přes rezervační formulář.
+
+> 🖥️ **Referenční náhled:** `nahled.html` v tomto repu — plně funkční klikatelný prototyp (vzhled, animace i logika formuláře). Stáhni a otevři v prohlížeči. Web postav podle něj; tento dokument je závazná specifikace toho, co náhled ukazuje, plus backend, který v náhledu není.
 
 ---
 
@@ -11,7 +13,7 @@
 - BBCREW = „3 kluci · 1 grill · totální smash chaos". Pop-up crew na festivalech a akcích v Praze.
 - Nejsou to „burgrárna", je to **crew** — brand stojí na energii party, ne na korporátní gastro estetice.
 - Instagram: [@burgerbycrew](https://instagram.com/burgerbycrew)
-- Web musí vizuálně 1:1 sedět na brand manuál (viz sekce 2). Brand manuál PDF: `bbcrew-brand-manual.pdf` (dodá Jakub spolu s tímto zadáním).
+- Web musí vizuálně 1:1 sedět na brand manuál (viz sekce 2). Brand manuál PDF: `assets/bbcrew-brand-manual.pdf`.
 
 ---
 
@@ -56,12 +58,18 @@ Nikdy nepoužívat jiné barvy. Cheese žlutá nesmí tvořit plochy — jen det
 
 Pořadí sekcí odshora dolů. Texty níže jsou **finální copy** — nasadit tak, jak jsou.
 
+### 3.0 Sticky navigace
+
+- Tenká fixní lišta (Ink pozadí), která se **vysune shora až po odscrollování z hero** sekce.
+- Obsah: logo BBCREW (žlutá, kotva nahoru) + odkazy Menu / Tour / Catering / IG.
+- Kotvy počítají s výškou lišty (`scroll-padding-top`), ať nadpisy nezajíždí pod ni.
+
 ### 3.1 Hero (fialová plocha `#5E17EB`)
 
-- Obří nápis **BBCREW** (off-white), pod ním tagline v IBM Plex Mono:
+- Obří nápis **BBCREW** (off-white) se „smash" animací při načtení (škála 1.6 → dopad na 1.0), pod ním tagline v IBM Plex Mono:
   `3 KLUCI · 1 GRILL · TOTÁLNÍ SMASH CHAOS`
 - Rotující samolepka-badge (signature prvek 3).
-- Dvě CTA: **„Kde nás potkáš"** (kotva na TOUR) a **„Chci vás na akci"** (kotva na Catering).
+- Tři CTA: **„Kde nás potkáš"** (kotva na TOUR), **„Chci vás na akci"** (kotva na Catering), **„@burgerbycrew"** (odkaz na IG — jiné sociální sítě crew nemá, IG je jediná).
 - Pod hero marquee pás.
 
 ### 3.2 O crew (off-white)
@@ -71,7 +79,7 @@ Eyebrow: `KDO JSME` (mono)
 > **Nejsme burgrárna. Jsme crew.**
 > Tři kluci, jeden grill a smash burgery, který nezvedáš — ty zvedají tebe. Jezdíme po festivalech, dvorcích a akcích po Praze. Kde stojí náš gril, tam je fronta.
 
-- Foto: `post-film.png` (polaroid crew fotka) — orámovaná šachovnicí.
+- Foto: `assets/crew-stan.jpg` (tři kluci pod stanem, z IG) — orámovaná šachovnicí, lehce rotovaná.
 
 ### 3.3 Menu (off-white / lilac tint)
 
@@ -85,7 +93,7 @@ Eyebrow: `CO SMASHUJEME`
 | **HRANOLKY** | Čerstvě řezaný, dvakrát smažený |
 
 - Ceny na webu **neuvádět** — mění se dle akce. Pod menu řádek v mono: `CENY NA MÍSTĚ · KAŽDÁ AKCE JE JINÁ`
-- Foto: `post-syr.png` (cheese pull) vedle menu.
+- Vedle menu **animovaný stack fotek** (viz 3.8): 4 fotky naskládané na sobě jako vylepené snímky, každé ~3,5 s vrchní „odletí" (rotace + fade) a zespodu se vynoří další. Pořadí: `burger-papir.jpg` → `baleni-burgeru.jpg` → `gril-venku.jpg` → `cedar-detail.jpg`.
 
 ### 3.4 TOUR (tmavá sekce `#17121F`, text off-white)
 
@@ -100,8 +108,8 @@ Eyebrow: `TOUR 2026`
 
 Eyebrow: `ON FILM`
 
-- 4–8 fotek, šachovnicové rámečky, lehce rotované (±2°) jako vylepené fotky.
-- Startovní fotky dodá Jakub: `foto-styl.png`, `post-syr.png`, `post-hranolky.png`, `post-film.png` (další doplní klient z akcí).
+- 6 fotek, šachovnicové rámečky, lehce rotované (±2°) jako vylepené fotky; na hover se narovnají a mírně zvětší.
+- Startovní fotky (reálné z IG, ve složce `assets/`): `krest-stanek.jpg`, `hranolky-friteza.jpg`, `krest-tabule.jpg`, `gril-kour.jpg`, `noze-kuchyn.jpg`, `bulky-pult.jpg` — další doplní klient z akcí.
 - Pod galerií CTA: **„Víc na Instagramu →"** (odkaz @burgerbycrew).
 
 ### 3.6 Catering + rezervační systém (fialová plocha) — **KLÍČOVÁ SEKCE, viz kapitola 4**
@@ -110,6 +118,22 @@ Eyebrow: `ON FILM`
 
 - Logo, IG odkaz, e-mail, marquee pás.
 - Řádek: `© 2026 BBCREW · SMASHED IN PRAGUE` + odkaz na zásady ochrany osobních údajů (viz 4.6).
+
+### 3.8 Animace a interakce (vše viz náhled)
+
+| Prvek | Chování |
+|---|---|
+| Hero nadpis | „smash" dopad při načtení stránky |
+| Samolepka-badge | pomalá nekonečná rotace (~22 s/otáčka) |
+| Marquee pásy | nekonečný posun textu |
+| Stack fotek u menu | auto-rotace po ~3,5 s: vrchní fotka odletí (rotace + fade), zespodu se vynoří další; pauza, když je tab na pozadí |
+| Sekce | scroll-reveal — jemné vynoření (opacity + posun nahoru) při vjezdu do viewportu, jen jednou |
+| Menu položky | hover: posun doprava, název zfialoví |
+| Řádky eventů | hover: posun doprava (kromě proběhlých) |
+| Fotky v galerii | hover: narovnání rotace + scale 1.03 |
+| Sticky nav | vysune se shora po opuštění hero |
+
+**Vše musí respektovat `prefers-reduced-motion: reduce`** — animace vypnout, obsah zobrazit rovnou (v náhledu implementováno, převzít).
 
 ---
 
@@ -211,15 +235,18 @@ Eventy s datem v minulosti se automaticky skryjí (nebo přesunou do „PROBĚHL
 
 ---
 
-## 7. Podklady (ve složce `assets/` tohoto repozitáře)
+## 7. Podklady (ve složce `assets/` repozitáře)
+
+`nahled.html` v kořeni repa = klikatelný referenční prototyp (fotky má vložené v sobě jako base64).
+
+Fotky jsou **reálné záběry z IG @burgerbycrew** (staženy v náhledové kvalitě ~900 px — ❗ před ostrým nasazením si od crew vyžádat originály ve velkém rozlišení):
 
 | Soubor | Účel |
 |---|---|
 | `bbcrew-brand-manual.pdf` | závazná vizuální identita |
-| `foto-styl.png` | galerie / hero foto (burger v šachovnicovém papíru) |
-| `post-syr.png` | menu / galerie (cheese pull „Sýrovej zátah") |
-| `post-hranolky.png` | galerie (hranolky v kuchyni) |
-| `post-film.png` | sekce O crew (polaroid) |
+| `crew-stan.jpg` | sekce O crew (tři kluci pod stanem) |
+| `burger-papir.jpg`, `baleni-burgeru.jpg`, `gril-venku.jpg`, `cedar-detail.jpg` | animovaný stack u menu |
+| `krest-stanek.jpg`, `hranolky-friteza.jpg`, `krest-tabule.jpg`, `gril-kour.jpg`, `noze-kuchyn.jpg`, `bulky-pult.jpg` | galerie ON FILM |
 | logo SVG | dodá klient dodatečně (do té doby Archivo Black lettering) |
 
 ❗ **Před spuštěním doplnit od klienta:** e-mail pro poptávky, doménu, případně Calendly link.
@@ -235,3 +262,4 @@ Eventy s datem v minulosti se automaticky skryjí (nebo přesunou do „PROBĚHL
 5. Eventy jdou změnit bez zásahu do kódu.
 6. Lighthouse mobile: Performance/Accessibility/SEO ≥ 90.
 7. Web funguje na mobilu od 360 px šířky, `prefers-reduced-motion` respektováno.
+8. Animace a interakce odpovídají sekci 3.8 a chování referenčního náhledu `nahled.html`.
