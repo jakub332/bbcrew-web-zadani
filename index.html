@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BBCREW — smash burgery v Praze · pop-upy, festivaly, catering</title>
-<meta name="description" content="3 kluci, 1 grill, totální smash chaos. Smash burgery a čerstvě řezaný hranolky na festivalech a akcích po Praze. Chceš nás na svojí akci? Pošli poptávku.">
+<title>BBCREW — smash burgery · restaurace Karlín & catering</title>
+<meta name="description" content="3 kluci, 1 grill, totální smash chaos. Smash burgery v naší restauraci v Karlíně (Sokolova 720/7), na festivalech a akcích po Praze. Rezervuj stůl nebo si objednej catering.">
 <meta name="theme-color" content="#5E17EB">
 <link rel="canonical" href="https://jakub332.github.io/bbcrew-web-zadani/">
 
@@ -30,6 +30,14 @@
   "description": "Smash burger pop-up crew — festivaly, dvorky a akce po Praze. Catering pro firemní akce, párty a svatby.",
   "servesCuisine": "Smash burgers",
   "areaServed": "Praha, Česko",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Sokolova 720/7",
+    "addressLocality": "Praha 8 – Karlín",
+    "postalCode": "180 00",
+    "addressCountry": "CZ"
+  },
+  "menu": "https://jakub332.github.io/bbcrew-web-zadani/#menu",
   "url": "https://jakub332.github.io/bbcrew-web-zadani/",
   "sameAs": ["https://instagram.com/burgerbycrew"]
 }
@@ -103,6 +111,10 @@
     position:relative;
     overflow:hidden;
   }
+  .hero-media{position:absolute;inset:0;z-index:0}
+  .hero-media video{width:100%;height:100%;object-fit:cover}
+  .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(94,23,235,.55), rgba(94,23,235,.8))}
+  .hero h1,.hero .tagline,.hero .ctas,.hero .sticker{position:relative;z-index:1}
   .hero h1{
     font-family:var(--display);
     font-size:clamp(4rem,17vw,13rem);
@@ -198,24 +210,23 @@
 
   /* ---------- MENU ---------- */
   .menu{background:var(--lilac-tint)}
-  .menu .wrap{display:grid;grid-template-columns:1fr .8fr;gap:3.5rem;align-items:center}
-  .menu-list{list-style:none;display:flex;flex-direction:column}
-  .menu-list li{
-    padding:1.35rem 0;
-    border-bottom:2px solid var(--ink);
-  }
-  .menu-list li:first-child{border-top:2px solid var(--ink)}
-  .menu-list .name{
+  .menu-cols{display:grid;grid-template-columns:1fr 1fr .9fr;gap:3rem;align-items:start;margin-top:1rem}
+  .mcat{
     font-family:var(--display);
-    font-size:clamp(1.2rem,2.6vw,1.7rem);
+    font-size:1.2rem;
     text-transform:uppercase;
     letter-spacing:-.01em;
-    display:flex;
-    align-items:center;
-    gap:.7rem;
-    flex-wrap:wrap;
+    color:var(--purple);
+    margin:1.7rem 0 .55rem;
   }
-  .menu-list .desc{font-size:.98rem;margin-top:.25rem;color:#3d3648}
+  .mcat:first-child{margin-top:0}
+  .mlist{list-style:none}
+  .mlist li{display:flex;align-items:baseline;padding:.32rem 0;font-size:1.02rem;transition:transform .15s ease}
+  .mlist li:hover{transform:translateX(6px)}
+  .mlist .mi{font-weight:600}
+  .mlist .mi small{font-weight:400;color:#3d3648;font-size:.8em;margin-left:.3em}
+  .mlist .dots{flex:1;border-bottom:2px dotted rgba(23,18,31,.3);margin:0 .6em;transform:translateY(-.25em)}
+  .mlist .mp{font-family:var(--mono);font-weight:600}
   .badge{
     font-family:var(--mono);
     font-size:.62rem;
@@ -291,6 +302,31 @@
     max-width:640px;
     box-shadow:0 24px 60px rgba(23,18,31,.35);
   }
+  .seg{display:flex;gap:.6rem;margin-bottom:1.6rem;flex-wrap:wrap}
+  .seg-btn{
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:.82rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:.75rem 1.3rem;
+    border:2px solid var(--ink);
+    border-radius:999px;
+    background:transparent;
+    color:var(--ink);
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+  .seg-btn:hover{background:var(--lilac-tint)}
+  .seg-btn.active{background:var(--purple);border-color:var(--purple);color:#fff}
+  .seg-btn:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+  .resto-info{
+    display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap;
+    font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;
+    margin-bottom:1.3rem;padding:.9rem 1.1rem;
+    background:var(--lilac-tint);border-radius:10px;
+  }
+  .resto-info b{color:var(--purple)}
   .field{margin-bottom:1.3rem}
   .field label{
     display:block;
@@ -413,9 +449,6 @@
   .reveal.in{opacity:1;transform:none}
 
   /* ---------- MICRO-INTERACTIONS ---------- */
-  .menu-list li{transition:transform .18s ease}
-  .menu-list li:hover{transform:translateX(8px)}
-  .menu-list li:hover .name{color:var(--purple)}
   .event-list li{transition:transform .18s ease}
   .event-list li:not(.past):hover{transform:translateX(8px)}
   .photo-frame{transition:transform .25s ease}
@@ -433,8 +466,13 @@
   footer nav a:focus-visible{outline:3px solid var(--cheese);outline-offset:3px}
   footer .fine{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:rgba(246,244,240,.5);margin-top:1.2rem}
 
+  @media (max-width:960px){
+    .menu-cols{grid-template-columns:1fr 1fr}
+    .menu-cols .stack{grid-column:1/-1;max-width:380px}
+  }
   @media (max-width:760px){
-    .crew .wrap,.menu .wrap{grid-template-columns:1fr;gap:2.4rem}
+    .crew .wrap{grid-template-columns:1fr;gap:2.4rem}
+    .menu-cols{grid-template-columns:1fr;gap:1.2rem}
     .field-grid{grid-template-columns:1fr}
     .section{padding:4rem 1.25rem}
     .event-list .place{margin-left:0;width:100%}
@@ -458,13 +496,16 @@
   <div class="topnav-links">
     <a href="#menu">Menu</a>
     <a href="#tour">Tour</a>
-    <a href="#catering">Catering</a>
+    <a href="#catering">Rezervace</a>
     <a href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">IG</a>
   </div>
 </nav>
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
+  <div class="hero-media" id="heroMedia">
+    <video id="heroVideo" src="assets/hero.mp4" autoplay muted loop playsinline aria-hidden="true"></video>
+  </div>
   <svg class="sticker" viewBox="0 0 200 200" aria-hidden="true">
     <defs><path id="circ" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
     <circle cx="100" cy="100" r="98" fill="#FFC42E"/>
@@ -477,9 +518,9 @@
   <h1>BBCREW</h1>
   <p class="tagline">3 KLUCI · 1 GRILL · TOTÁLNÍ SMASH CHAOS</p>
   <div class="ctas">
-    <a class="btn solid" href="#tour">Kde nás potkáš</a>
-    <a class="btn" href="#catering">Chci vás na akci</a>
-    <a class="btn" href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">@burgerbycrew</a>
+    <a class="btn solid" href="#menu">Menu</a>
+    <a class="btn" href="#catering">Rezervuj stůl</a>
+    <a class="btn" href="#tour">Kde nás potkáš</a>
   </div>
 </header>
 
@@ -491,7 +532,7 @@
     <div>
       <span class="eyebrow" style="color:var(--purple)">Kdo jsme</span>
       <p class="lead">Nejsme burgrárna.<br>Jsme crew.</p>
-      <p>Tři kluci, jeden grill a smash burgery, který nezvedáš — ty zvedají tebe. Jezdíme po festivalech, dvorcích a akcích po Praze. Kde stojí náš gril, tam je fronta.</p>
+      <p>Tři kluci, jeden grill a smash burgery, který nezvedáš — ty zvedají tebe. Jezdíme po festivalech, dvorcích a akcích po Praze. A nově nás najdeš každý den i v naší restauraci v Karlíně. Kde stojí náš gril, tam je fronta.</p>
     </div>
     <div class="photo-frame">
       <img src="assets/crew-stan.jpg" alt="Tři kluci z BBCREW pod stanem na akci" loading="lazy" decoding="async">
@@ -504,35 +545,74 @@
 <!-- ============ MENU ============ -->
 <section class="section menu" id="menu">
   <div class="wrap">
-    <div>
-      <span class="eyebrow" style="color:var(--purple)">Co smashujeme</span>
-      <h2>Menu</h2>
-      <ul class="menu-list">
-        <li>
-          <div class="name">Classic Smash</div>
-          <div class="desc">Hovězí, čedar, cibule, smash omáčka, máslová bulka</div>
-        </li>
-        <li>
-          <div class="name">Double Trouble</div>
-          <div class="desc">Dvakrát maso, dvakrát čedar, žádný kompromisy</div>
-        </li>
-        <li>
-          <div class="name">Sýrovej zátah <span class="badge">Speciál</span></div>
-          <div class="desc">Sýr teče, ty brečíš štěstím</div>
-        </li>
-        <li>
-          <div class="name">Hranolky</div>
-          <div class="desc">Čerstvě řezaný, dvakrát smažený</div>
-        </li>
-      </ul>
-      <p class="menu-note">CENY NA MÍSTĚ · KAŽDÁ AKCE JE JINÁ</p>
+    <span class="eyebrow" style="color:var(--purple)">Co smashujeme · restaurace Karlín</span>
+    <h2>Menu</h2>
+    <div class="menu-cols">
+      <div>
+        <h3 class="mcat">Burgers</h3>
+        <ul class="mlist">
+          <li><span class="mi">Single smash</span><span class="dots"></span><span class="mp">190</span></li>
+          <li><span class="mi">Double smash</span><span class="dots"></span><span class="mp">250</span></li>
+          <li><span class="mi">Vege slider</span><span class="dots"></span><span class="mp">225</span></li>
+          <li><span class="mi">Royal smash</span><span class="dots"></span><span class="mp">295</span></li>
+        </ul>
+        <h3 class="mcat">Extra</h3>
+        <ul class="mlist">
+          <li><span class="mi">Maso</span><span class="dots"></span><span class="mp">85</span></li>
+          <li><span class="mi">Cheese</span><span class="dots"></span><span class="mp">15</span></li>
+          <li><span class="mi">Chilli mangi</span><span class="dots"></span><span class="mp">25</span></li>
+          <li><span class="mi">Jalapeños</span><span class="dots"></span><span class="mp">25</span></li>
+          <li><span class="mi">Cucumber</span><span class="dots"></span><span class="mp">25</span></li>
+          <li><span class="mi">Onion</span><span class="dots"></span><span class="mp">15</span></li>
+        </ul>
+        <h3 class="mcat">Sauce</h3>
+        <ul class="mlist">
+          <li><span class="mi">Japanese Mayo</span><span class="dots"></span><span class="mp">50</span></li>
+          <li><span class="mi">Ketchup</span><span class="dots"></span><span class="mp">30</span></li>
+          <li><span class="mi">Truffle mayo</span><span class="dots"></span><span class="mp">80</span></li>
+          <li><span class="mi">Chipotle</span><span class="dots"></span><span class="mp">60</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="mcat">Sides</h3>
+        <ul class="mlist">
+          <li><span class="mi">Kimchi Fries</span><span class="dots"></span><span class="mp">120</span></li>
+          <li><span class="mi">Fries</span><span class="dots"></span><span class="mp">90</span></li>
+          <li><span class="mi">BBCREW cabbage</span><span class="dots"></span><span class="mp">65</span></li>
+          <li><span class="mi">Cucumber salad</span><span class="dots"></span><span class="mp">80</span></li>
+        </ul>
+        <h3 class="mcat">Pivo</h3>
+        <ul class="mlist">
+          <li><span class="mi">Plzeň <small>0,4 l</small></span><span class="dots"></span><span class="mp">59</span></li>
+          <li><span class="mi">Plzeň šnyt</span><span class="dots"></span><span class="mp">44</span></li>
+          <li><span class="mi">Pomelo grep <small>0,4 l</small></span><span class="dots"></span><span class="mp">50</span></li>
+        </ul>
+        <h3 class="mcat">Non alco</h3>
+        <ul class="mlist">
+          <li><span class="mi">Cola <small>0,33 l</small></span><span class="dots"></span><span class="mp">65</span></li>
+          <li><span class="mi">Cola zero <small>0,33 l</small></span><span class="dots"></span><span class="mp">65</span></li>
+          <li><span class="mi">Lemonade <small>0,3 l</small></span><span class="dots"></span><span class="mp">85</span></li>
+          <li><span class="mi">Ice tea <small>0,3 l</small></span><span class="dots"></span><span class="mp">95</span></li>
+          <li><span class="mi">Water</span><span class="dots"></span><span class="mp">59</span></li>
+          <li><span class="mi">Water carafe</span><span class="dots"></span><span class="mp">44</span></li>
+        </ul>
+        <h3 class="mcat">Coffee</h3>
+        <ul class="mlist">
+          <li><span class="mi">Espresso</span><span class="dots"></span><span class="mp">65</span></li>
+          <li><span class="mi">Double</span><span class="dots"></span><span class="mp">75</span></li>
+          <li><span class="mi">Cappuccino</span><span class="dots"></span><span class="mp">80</span></li>
+          <li><span class="mi">Flat white</span><span class="dots"></span><span class="mp">90</span></li>
+          <li><span class="mi">Latte</span><span class="dots"></span><span class="mp">90</span></li>
+        </ul>
+      </div>
+      <div class="stack" id="foodStack" aria-label="Fotky z menu — automaticky se střídají">
+        <div class="photo-frame stack-card"><img src="assets/foto-double-cheese.jpg" alt="Double smash s tekoucím čedarem" loading="lazy" decoding="async"></div>
+        <div class="photo-frame stack-card"><img src="assets/foto-kimchi.jpg" alt="Double smash s kimchi" loading="lazy" decoding="async"></div>
+        <div class="photo-frame stack-card"><img src="assets/foto-fries.jpg" alt="Chilli hranolky" loading="lazy" decoding="async"></div>
+        <div class="photo-frame stack-card"><img src="assets/foto-cheeseburger.jpg" alt="Single smash s čedarem" loading="lazy" decoding="async"></div>
+      </div>
     </div>
-    <div class="stack" id="foodStack" aria-label="Fotky z grilu — automaticky se střídají">
-      <div class="photo-frame stack-card"><img src="assets/cedar-detail.jpg" alt="Smash patties s tavícím se čedarem na grilu" loading="lazy" decoding="async"></div>
-      <div class="photo-frame stack-card"><img src="assets/gril-venku.jpg" alt="Grilování patties venku na akci" loading="lazy" decoding="async"></div>
-      <div class="photo-frame stack-card"><img src="assets/baleni-burgeru.jpg" alt="Balení hotového burgeru do papíru" loading="lazy" decoding="async"></div>
-      <div class="photo-frame stack-card"><img src="assets/burger-papir.jpg" alt="Smash burger s čedarem na papíru" loading="lazy" decoding="async"></div>
-    </div>
+    <p class="menu-note">CENY V KČ · <a href="assets/menu.jpg" target="_blank" rel="noopener" style="color:var(--purple)">MENU KE STAŽENÍ</a></p>
   </div>
 </section>
 
@@ -553,14 +633,14 @@
 <section class="section" id="film">
   <div class="wrap">
     <span class="eyebrow" style="color:var(--purple)">On film</span>
-    <h2>Z akcí</h2>
+    <h2>Z kuchyně i z akcí</h2>
     <div class="gallery-grid">
-      <div class="photo-frame"><img src="assets/krest-stanek.jpg" alt="Stánek BBCREW na křtu s tabulí" loading="lazy" decoding="async"></div>
-      <div class="photo-frame"><img src="assets/hranolky-friteza.jpg" alt="Hranolky ve fritéze" loading="lazy" decoding="async"></div>
-      <div class="photo-frame"><img src="assets/krest-tabule.jpg" alt="Psaní nápisu BBCREW křídou na tabuli stánku" loading="lazy" decoding="async"></div>
-      <div class="photo-frame"><img src="assets/gril-kour.jpg" alt="Grilování v kouři pod stanem" loading="lazy" decoding="async"></div>
-      <div class="photo-frame"><img src="assets/noze-kuchyn.jpg" alt="Člen crew s noži v kuchyni" loading="lazy" decoding="async"></div>
-      <div class="photo-frame"><img src="assets/bulky-pult.jpg" alt="Crew připravuje bulky za pultem" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto-rez.jpg" alt="Rozříznutý smash burger v rukou" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto-mayo.jpg" alt="Japonská mayo na čerstvé bulce" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto-chef.jpg" alt="Šéf kuchyně tvaruje kuličky masa" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto-bulky.jpg" alt="Věž čerstvě upečených bulek" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto-vruce.jpg" alt="Triple smash burger v rukou" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto-crew-usmev.jpg" alt="Člen crew ochutnává burger v kuchyni" loading="lazy" decoding="async"></div>
     </div>
     <p class="gallery-cta"><a class="link-ig" href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">Víc na Instagramu →</a></p>
   </div>
@@ -569,12 +649,81 @@
 <!-- ============ CATERING ============ -->
 <section class="section catering" id="catering">
   <div class="wrap">
-    <span class="eyebrow">Chceš nás na svojí akci?</span>
-    <h2>Grilujeme i pro tebe</h2>
-    <p class="intro">Firemní akce, párty, svatba, festival. Přijedeme, postavíme gril a smashneme to. Pro 5 a víc lidí se objednává dopředu — po odeslání poptávky se ti do 24 hodin ozveme a na krátkém callu doladíme menu, kapacitu a cenu.</p>
+    <span class="eyebrow">Rezervace</span>
+    <h2>Stůl v Karlíně, nebo gril na tvojí akci?</h2>
+    <p class="intro">Najdeš nás každý den v naší restauraci — <b>Sokolova 720/7, Praha 8 – Karlín</b>. Rezervuj si stůl, nebo si objednej celý gril na firemní akci, párty či svatbu (pro 5 a víc lidí, poptávka dopředu — ozveme se do 24 hodin).</p>
 
     <div class="form-card">
-      <form id="cateringForm" novalidate>
+      <div class="seg" role="tablist" aria-label="Typ rezervace">
+        <button class="seg-btn active" id="segTable" type="button">🍔 Stůl v restauraci</button>
+        <button class="seg-btn" id="segCat" type="button">🎪 Catering na akci</button>
+      </div>
+
+      <!-- ======== REZERVACE STOLU ======== -->
+      <form id="tableForm" novalidate>
+        <div class="resto-info"><b>BBCREW Karlín</b> · Sokolova 720/7, 180 00 Praha 8 · rezervaci potvrdíme zprávou</div>
+        <div id="tableFields">
+          <div class="field-grid">
+            <div class="field">
+              <label for="t-name">Jméno a příjmení</label>
+              <input type="text" id="t-name" autocomplete="name">
+              <p class="err" id="err-t-name">Doplň jméno (aspoň 3 znaky).</p>
+            </div>
+            <div class="field">
+              <label for="t-phone">Telefon</label>
+              <input type="tel" id="t-phone" autocomplete="tel" placeholder="+420 …">
+              <p class="err" id="err-t-phone">Doplň telefon, ať můžeme rezervaci potvrdit.</p>
+            </div>
+            <div class="field">
+              <label for="t-date">Datum</label>
+              <input type="date" id="t-date">
+              <p class="err" id="err-t-date">Vyber dnešní nebo pozdější datum.</p>
+            </div>
+            <div class="field">
+              <label for="t-time">Čas</label>
+              <select id="t-time">
+                <option value="">Vyber…</option>
+                <option>11:00</option><option>12:00</option><option>13:00</option>
+                <option>14:00</option><option>15:00</option><option>16:00</option>
+                <option>17:00</option><option>18:00</option><option>19:00</option>
+                <option>20:00</option>
+              </select>
+              <p class="err" id="err-t-time">Vyber čas.</p>
+            </div>
+            <div class="field">
+              <label for="t-people">Počet lidí</label>
+              <input type="number" id="t-people" min="1" max="20" value="2" inputmode="numeric">
+              <p class="err" id="err-t-people">Zadej 1–20 lidí (víc už je catering 😉).</p>
+            </div>
+            <div class="field">
+              <label for="t-note">Poznámka (nepovinné)</label>
+              <input type="text" id="t-note" maxlength="200" placeholder="Oslava, kočárek, terasa…">
+            </div>
+          </div>
+          <div class="field">
+            <div class="consent">
+              <input type="checkbox" id="t-consent">
+              <label for="t-consent" style="font-family:var(--body);font-size:.85rem;letter-spacing:0;text-transform:none;font-weight:400;margin:0">
+                Souhlasím se zpracováním osobních údajů pro vyřízení rezervace.
+              </label>
+            </div>
+            <p class="err" id="err-t-consent">Bez souhlasu rezervaci nevyřídíme — zaškrtni ho prosím.</p>
+          </div>
+          <button class="btn submit" type="submit">Rezervovat stůl</button>
+        </div>
+        <div class="form-msg hidden" id="tableThanks">
+          <strong>Rezervace je připravená.</strong>
+          <span>Pošli nám ji na Instagram — shrnutí níže zkopíruješ jedním klikem a my ti ji potvrdíme zprávou.</span>
+          <div class="sum-box" id="tableSumBox" aria-label="Shrnutí rezervace"></div>
+          <div class="msg-btns">
+            <button class="btn" type="button" id="tableCopyBtn">Zkopírovat shrnutí</button>
+            <a class="btn ghost" href="https://ig.me/m/burgerbycrew" target="_blank" rel="noopener">Poslat na IG</a>
+          </div>
+        </div>
+      </form>
+
+      <!-- ======== CATERING ======== -->
+      <form id="cateringForm" class="hidden" novalidate>
         <div class="field">
           <label for="people">Pro kolik lidí?</label>
           <div class="people-row">
@@ -585,9 +734,10 @@
 
         <!-- small party message -->
         <div class="form-msg hidden" id="smallMsg">
-          <strong>Na tohle nepotřebuješ rezervaci.</strong>
-          Přijď na nejbližší pop-up a burger máš do ruky.
-          <br><a class="btn" href="#tour">Kde nás potkáš</a>
+          <strong>Na tohle nepotřebuješ catering.</strong>
+          Pro partu do 4 lidí si rezervuj stůl u nás v Karlíně, nebo dojeď na nejbližší pop-up.
+          <br><button class="btn" type="button" id="toTableBtn">Rezervovat stůl</button>
+          <a class="btn" href="#tour" style="margin-left:.6rem">Kde nás potkáš</a>
         </div>
 
         <!-- full form -->
@@ -661,7 +811,7 @@
         </div>
       </form>
     </div>
-    <p class="demo-note">Poptávky zatím přijímáme přes Instagram — e-mail a napojení formuláře doplní programátor (konstanty CONTACT_EMAIL / FORM_ENDPOINT v kódu)</p>
+    <p class="demo-note">Rezervace i poptávky zatím přijímáme přes Instagram — e-mail a napojení formuláře doplní programátor (konstanty CONTACT_EMAIL / FORM_ENDPOINT v kódu)</p>
   </div>
 </section>
 
@@ -671,9 +821,10 @@
   <nav>
     <a href="#menu">Menu</a>
     <a href="#tour">Tour</a>
-    <a href="#catering">Catering</a>
+    <a href="#catering">Rezervace</a>
     <a href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">Instagram</a>
   </nav>
+  <p class="fine">SOKOLOVA 720/7 · 180 00 PRAHA 8 – KARLÍN · IČO: 24863246</p>
   <p class="fine">© 2026 BBCREW · SMASHED IN PRAGUE</p>
 </footer>
 
@@ -826,6 +977,97 @@
 
   document.getElementById('copyBtn').addEventListener('click', function(){
     var text = document.getElementById('sumBox').textContent;
+    var btn = this;
+    function done(){ btn.textContent = 'Zkopírováno ✓'; setTimeout(function(){ btn.textContent = 'Zkopírovat shrnutí'; }, 2000); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); done();
+    }
+  });
+
+  /* ===== hero video — dokud assets/hero.mp4 neexistuje, hero zůstane fialové ===== */
+  var heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    heroVideo.addEventListener('error', function(){
+      var m = document.getElementById('heroMedia');
+      if (m) m.remove();
+    }, true);
+  }
+
+  /* ===== přepínání Stůl / Catering ===== */
+  var segTable = document.getElementById('segTable');
+  var segCat = document.getElementById('segCat');
+  var tableForm = document.getElementById('tableForm');
+
+  function showTab(which){
+    var isTable = which === 'table';
+    segTable.classList.toggle('active', isTable);
+    segCat.classList.toggle('active', !isTable);
+    tableForm.classList.toggle('hidden', !isTable);
+    form.classList.toggle('hidden', isTable);
+  }
+  segTable.addEventListener('click', function(){ showTab('table'); });
+  segCat.addEventListener('click', function(){ showTab('catering'); });
+  var toTableBtn = document.getElementById('toTableBtn');
+  if (toTableBtn) toTableBtn.addEventListener('click', function(){
+    showTab('table');
+    tableForm.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  /* ===== rezervace stolu ===== */
+  var tDate = document.getElementById('t-date');
+  tDate.min = fmt(new Date());
+
+  ['t-name','t-phone','t-date','t-time','t-people','t-consent'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', function(){ setInvalid(id, false); });
+  });
+
+  tableForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var ok = true;
+    function check(id, valid){ setInvalid(id, !valid); if(!valid) ok = false; }
+
+    var tn = document.getElementById('t-name').value.trim();
+    var tp = document.getElementById('t-phone').value;
+    var tt = document.getElementById('t-time').value;
+    var tpeople = parseInt(document.getElementById('t-people').value, 10) || 0;
+
+    check('t-name', tn.length >= 3);
+    check('t-phone', tp.replace(/\D/g,'').length >= 9);
+    check('t-date', !!tDate.value && tDate.value >= fmt(new Date()));
+    check('t-time', tt !== '');
+    check('t-people', tpeople >= 1 && tpeople <= 20);
+    check('t-consent', document.getElementById('t-consent').checked);
+
+    if (!ok) {
+      var firstBad = tableForm.querySelector('.field.invalid input, .field.invalid select');
+      if (firstBad) firstBad.focus();
+      return;
+    }
+
+    var d = tDate.value.split('-').reverse().join('. ');
+    var note = document.getElementById('t-note').value.trim();
+    var summary = 'REZERVACE STOLU — BBCREW KARLÍN\n'
+      + '————————————————\n'
+      + 'Jméno:      ' + tn + '\n'
+      + 'Telefon:    ' + tp.trim() + '\n'
+      + 'Datum:      ' + d + '\n'
+      + 'Čas:        ' + tt + '\n'
+      + 'Počet lidí: ' + tpeople
+      + (note ? '\nPoznámka:   ' + note : '');
+
+    document.getElementById('tableSumBox').textContent = summary;
+    document.getElementById('tableFields').classList.add('hidden');
+    var thanks = document.getElementById('tableThanks');
+    thanks.classList.remove('hidden');
+    thanks.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  document.getElementById('tableCopyBtn').addEventListener('click', function(){
+    var text = document.getElementById('tableSumBox').textContent;
     var btn = this;
     function done(){ btn.textContent = 'Zkopírováno ✓'; setTimeout(function(){ btn.textContent = 'Zkopírovat shrnutí'; }, 2000); }
     if (navigator.clipboard && navigator.clipboard.writeText) {
