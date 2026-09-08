@@ -853,9 +853,19 @@
 
 <script>
 (function(){
-  /* ===== KONFIGURACE — doplní programátor ===== */
+  /* ===== KONFIGURACE — doplní programátor (viz REZERVACE-ARCHITEKTURA.md) ===== */
   var CONTACT_EMAIL = '';        // e-mail pro poptávky (až bude) — zobrazí tlačítko „Poslat e-mailem“
-  var FORM_ENDPOINT = '';        // backend/Formspree endpoint (až bude) — formulář pak odesílá napřímo
+  var FORM_ENDPOINT = '';        // URL Cloudflare Workeru — po doplnění formuláře odesílají samy (Telegram + e-mail)
+
+  /* odešle rezervaci/poptávku na backend; vrací Promise<bool> (false = endpoint není / selhal) */
+  function sendToBackend(payload){
+    if (!FORM_ENDPOINT) return Promise.resolve(false);
+    return fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    }).then(function(r){ return r.ok; }).catch(function(){ return false; });
+  }
 
   /* ===== TOUR — akce se upravují tady ===== */
   var EVENTS = [
@@ -981,6 +991,22 @@
     var summary = buildSummary(n);
     document.getElementById('sumBox').textContent = summary;
 
+    sendToBackend({
+      typ: 'catering',
+      pocet: n,
+      jmeno: form.name.value.trim(),
+      email: form.email.value.trim(),
+      telefon: form.phone.value.trim(),
+      datum: form.date.value,
+      misto: form.place.value.trim(),
+      typAkce: form.type.value,
+      poznamka: form.note.value.trim(),
+      website: form.website.value
+    }).then(function(sent){
+      if (sent) document.getElementById('thanksText').textContent =
+        'Poptávka je odeslaná — ozveme se do 24 hodin. Shrnutí níže si můžeš nechat pro sebe.';
+    });
+
     if (CONTACT_EMAIL) {
       var mailBtn = document.getElementById('mailBtn');
       mailBtn.classList.remove('hidden');
@@ -990,8 +1016,6 @@
       document.getElementById('thanksText').textContent =
         'Pošli nám shrnutí e-mailem nebo na Instagram — ozveme se do 24 hodin.';
     }
-
-    /* až bude backend: if (FORM_ENDPOINT) fetch(FORM_ENDPOINT, {method:'POST', body:new FormData(form)}) */
 
     fullForm.classList.add('hidden');
     thanksMsg.classList.remove('hidden');
@@ -1083,6 +1107,22 @@
       + (note ? '\nPoznámka:   ' + note : '');
 
     document.getElementById('tableSumBox').textContent = summary;
+
+    sendToBackend({
+      typ: 'stul',
+      jmeno: tn,
+      telefon: tp.trim(),
+      datum: tDate.value,
+      cas: tt,
+      pocet: tpeople,
+      poznamka: note
+    }).then(function(sent){
+      if (sent) {
+        var span = document.querySelector('#tableThanks span');
+        if (span) span.textContent = 'Rezervace je odeslaná — potvrdíme ti ji zprávou nebo telefonem.';
+      }
+    });
+
     document.getElementById('tableFields').classList.add('hidden');
     var thanks = document.getElementById('tableThanks');
     thanks.classList.remove('hidden');
