@@ -327,6 +327,19 @@
     background:var(--lilac-tint);border-radius:10px;
   }
   .resto-info b{color:var(--purple)}
+  .rez-grid{display:grid;grid-template-columns:minmax(0,640px) minmax(280px,1fr);gap:2.5rem;align-items:start}
+  .map-card{position:relative;display:block;border-radius:20px;overflow:hidden;box-shadow:0 24px 60px rgba(23,18,31,.35);background:var(--offwhite)}
+  .map-card iframe{display:block;width:100%;height:420px;border:0;pointer-events:none}
+  .map-card .map-label{
+    position:absolute;left:50%;bottom:1.1rem;transform:translateX(-50%);
+    font-family:var(--mono);font-weight:600;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--ink);color:var(--offwhite);padding:.6rem 1.2rem;border-radius:999px;white-space:nowrap;
+    transition:background .15s;
+  }
+  .map-card:hover .map-label{background:var(--purple)}
+  .map-card:focus-visible{outline:4px solid var(--cheese);outline-offset:3px}
+  .map-note{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,244,240,.75);margin-top:.9rem;text-align:center}
+  @media (max-width:1000px){.rez-grid{grid-template-columns:1fr}.map-card iframe{height:320px}}
   .field{margin-bottom:1.3rem}
   .field label{
     display:block;
@@ -653,6 +666,7 @@
     <h2>Stůl v Karlíně, nebo gril na tvojí akci?</h2>
     <p class="intro">Najdeš nás každý den v naší restauraci — <b>Sokolova 720/7, Praha 8 – Karlín</b>. Rezervuj si stůl, nebo si objednej celý gril na firemní akci, párty či svatbu (pro 5 a víc lidí, poptávka dopředu — ozveme se do 24 hodin).</p>
 
+    <div class="rez-grid">
     <div class="form-card">
       <div class="seg" role="tablist" aria-label="Typ rezervace">
         <button class="seg-btn active" id="segTable" type="button">🍔 Stůl v restauraci</button>
@@ -810,6 +824,15 @@
           </div>
         </div>
       </form>
+    </div>
+
+    <div>
+      <a class="map-card" href="https://www.google.com/maps/search/?api=1&amp;query=Sokolova%20720%2F7%2C%20180%2000%20Praha%208%20Karl%C3%ADn" target="_blank" rel="noopener" aria-label="Otevřít restauraci BBCREW v Google Mapách">
+        <iframe src="https://www.google.com/maps?q=Sokolova%20720%2F7%2C%20180%2000%20Praha%208%20Karl%C3%ADn&amp;z=16&amp;output=embed" loading="lazy" title="Mapa — BBCREW, Sokolova 720/7, Praha 8 – Karlín" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <span class="map-label">📍 Klikni pro navigaci</span>
+      </a>
+      <p class="map-note">Sokolova 720/7 · Praha 8 – Karlín</p>
+    </div>
     </div>
     <p class="demo-note">Rezervace i poptávky zatím přijímáme přes Instagram — e-mail a napojení formuláře doplní programátor (konstanty CONTACT_EMAIL / FORM_ENDPOINT v kódu)</p>
   </div>
