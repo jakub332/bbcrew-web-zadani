@@ -178,14 +178,20 @@
     border-top:6px solid var(--cheese);
   }
   .marquee.on-light{border-top:none;border-bottom:6px solid var(--purple)}
-  .marquee span{
+  .marquee-track{
+    display:inline-flex;
+    width:max-content;
+    animation:slide 28s linear infinite;
+  }
+  .marquee-track span{
     display:inline-block;
+    flex-shrink:0;
+    white-space:nowrap;
     font-family:var(--mono);
     font-weight:600;
     font-size:.85rem;
     letter-spacing:.18em;
     text-transform:uppercase;
-    animation:slide 28s linear infinite;
   }
   @keyframes slide{to{transform:translateX(-50%)}}
 
@@ -490,7 +496,7 @@
     .event-list .place{margin-left:0;width:100%}
   }
   @media (prefers-reduced-motion:reduce){
-    .marquee span,.sticker{animation:none}
+    .marquee-track,.sticker{animation:none}
     .hero h1{animation:none}
     html{scroll-behavior:auto}
     .stack .stack-card,.reveal,.menu-list li,.event-list li,.photo-frame,.topnav{transition:none}
@@ -536,7 +542,7 @@
   </div>
 </header>
 
-<div class="marquee" aria-hidden="true"><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span></div>
+<div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span></div></div>
 
 <!-- ============ CREW ============ -->
 <section class="section crew" id="crew">
@@ -639,7 +645,7 @@
   </div>
 </section>
 
-<div class="marquee on-light" aria-hidden="true"><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span></div>
+<div class="marquee on-light" aria-hidden="true"><div class="marquee-track"><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span></div></div>
 
 <!-- ============ GALLERY ============ -->
 <section class="section" id="film">
