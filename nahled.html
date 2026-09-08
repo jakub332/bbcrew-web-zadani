@@ -157,15 +157,14 @@
   .btn.solid:hover{background:var(--cheese);border-color:var(--cheese);color:var(--ink)}
   .btn:not(.solid):hover{background:var(--offwhite);color:var(--purple)}
 
-  /* rotating sticker */
+  /* rotating sticker — centrovaný nad logem */
   .sticker{
-    position:absolute;
-    top:clamp(.8rem,3vw,2.5rem);
-    right:clamp(.8rem,4vw,3.5rem);
-    width:clamp(96px,14vw,160px);
-    height:clamp(96px,14vw,160px);
+    width:clamp(88px,12vw,140px);
+    height:clamp(88px,12vw,140px);
+    margin-bottom:clamp(1.2rem,3vh,2.2rem);
     animation:spin 22s linear infinite;
     pointer-events:none;
+    flex-shrink:0;
   }
   @keyframes spin{to{transform:rotate(360deg)}}
 
@@ -523,7 +522,7 @@
     <defs><path id="circ" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
     <circle cx="100" cy="100" r="98" fill="#FFC42E"/>
     <circle cx="100" cy="100" r="52" fill="none" stroke="#17121F" stroke-width="3"/>
-    <text fill="#17121F" font-family="'IBM Plex Mono', monospace" font-size="17.5" font-weight="600" letter-spacing="3.5">
+    <text fill="#17121F" font-family="'IBM Plex Mono', monospace" font-size="15" font-weight="600" letter-spacing="3">
       <textPath href="#circ">SMASHED IN PRAGUE · BURGER BY CREW ·</textPath>
     </text>
     <text x="100" y="109" text-anchor="middle" fill="#17121F" font-family="'Archivo Black', sans-serif" font-size="26">BB</text>
