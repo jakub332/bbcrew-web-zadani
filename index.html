@@ -37,6 +37,10 @@
     "postalCode": "180 00",
     "addressCountry": "CZ"
   },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "10:00", "closes": "22:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday", "Sunday"], "opens": "12:00", "closes": "22:00"}
+  ],
   "menu": "https://jakub332.github.io/bbcrew-web-zadani/#menu",
   "url": "https://jakub332.github.io/bbcrew-web-zadani/",
   "sameAs": ["https://instagram.com/burgerbycrew"]
@@ -686,7 +690,7 @@
 
       <!-- ======== REZERVACE STOLU ======== -->
       <form id="tableForm" novalidate>
-        <div class="resto-info"><b>BBCREW Karlín</b> · Sokolova 720/7, 180 00 Praha 8 · rezervaci potvrdíme zprávou</div>
+        <div class="resto-info"><span><b>BBCREW Karlín</b> · Sokolova 720/7, 180 00 Praha 8</span><span>🕐 Út–Pá 10–22 · So–Ne 12–22 · Po zavřeno</span></div>
         <div id="tableFields">
           <div class="field-grid">
             <div class="field">
@@ -708,10 +712,10 @@
               <label for="t-time">Čas</label>
               <select id="t-time">
                 <option value="">Vyber…</option>
-                <option>11:00</option><option>12:00</option><option>13:00</option>
-                <option>14:00</option><option>15:00</option><option>16:00</option>
-                <option>17:00</option><option>18:00</option><option>19:00</option>
-                <option>20:00</option>
+                <option>10:00</option><option>11:00</option><option>12:00</option>
+                <option>13:00</option><option>14:00</option><option>15:00</option>
+                <option>16:00</option><option>17:00</option><option>18:00</option>
+                <option>19:00</option><option>20:00</option><option>21:00</option>
               </select>
               <p class="err" id="err-t-time">Vyber čas.</p>
             </div>
@@ -861,6 +865,7 @@
     <a href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">Instagram</a>
   </nav>
   <p class="fine">SOKOLOVA 720/7 · 180 00 PRAHA 8 – KARLÍN · IČO: 24863246</p>
+  <p class="fine">OTEVŘENO: ÚT–PÁ 10–22 · SO–NE 12–22 · PONDĚLÍ ZAVŘENO</p>
   <p class="fine">© 2026 BBCREW · SMASHED IN PRAGUE</p>
 </footer>
 
@@ -1104,10 +1109,18 @@
     document.getElementById(id).addEventListener('input', function(){ setInvalid(id, false); });
   });
 
+  /* otvírací doba: den (0=Ne … 6=So) → [otevírá, zavírá]; pondělí zavřeno */
+  var HOURS = {0:[12,22], 1:null, 2:[10,22], 3:[10,22], 4:[10,22], 5:[10,22], 6:[12,22]};
+
   tableForm.addEventListener('submit', function(e){
     e.preventDefault();
     var ok = true;
     function check(id, valid){ setInvalid(id, !valid); if(!valid) ok = false; }
+
+    var errDate = document.getElementById('err-t-date');
+    var errTime = document.getElementById('err-t-time');
+    errDate.textContent = 'Vyber dnešní nebo pozdější datum.';
+    errTime.textContent = 'Vyber čas.';
 
     var tn = document.getElementById('t-name').value.trim();
     var tp = document.getElementById('t-phone').value;
@@ -1120,6 +1133,21 @@
     check('t-time', tt !== '');
     check('t-people', tpeople >= 1 && tpeople <= 20);
     check('t-consent', document.getElementById('t-consent').checked);
+
+    /* kontrola otvírací doby */
+    if (tDate.value && tDate.value >= fmt(new Date())) {
+      var oh = HOURS[new Date(tDate.value + 'T12:00:00').getDay()];
+      if (!oh) {
+        errDate.textContent = 'V pondělí máme zavřeno — vyber jiný den.';
+        check('t-date', false);
+      } else if (tt !== '') {
+        var hh = parseInt(tt, 10);
+        if (hh < oh[0] || hh >= oh[1]) {
+          errTime.textContent = 'V tenhle den máme otevřeno ' + oh[0] + '–' + oh[1] + ' — vyber čas v otvíračce.';
+          check('t-time', false);
+        }
+      }
+    }
 
     if (!ok) {
       var firstBad = tableForm.querySelector('.field.invalid input, .field.invalid select');
