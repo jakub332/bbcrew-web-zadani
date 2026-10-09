@@ -294,6 +294,9 @@
   .tour-note{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;margin-top:1.6rem;color:rgba(246,244,240,.55)}
   .tour-ig{margin-top:2.2rem}
   .tour-ig .btn{border-color:var(--offwhite)}
+  .tour-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:3.5rem;align-items:center}
+  .tour-photo{max-width:340px;justify-self:center;transform:rotate(-2.5deg)}
+  @media (max-width:860px){.tour-grid{grid-template-columns:1fr}.tour-photo{margin-top:2rem;max-width:300px}}
 
   /* ---------- GALLERY ---------- */
   .gallery-grid{
@@ -667,11 +670,18 @@
 <!-- ============ TOUR ============ -->
 <section class="section tour" id="tour">
   <div class="wrap">
-    <span class="eyebrow">Tour 2026</span>
-    <h2>Kde nás potkáš</h2>
-    <ul class="event-list" id="eventList"></ul>
-    <p class="tour-note">* TERMÍNY SE UPRAVUJÍ V SEZNAMU <span style="letter-spacing:0">EVENTS</span> PŘÍMO V KÓDU — PROBĚHLÉ AKCE SE ŠKRTAJÍ SAMY</p>
-    <p class="tour-ig"><a class="btn" href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">Sleduj @burgerbycrew</a></p>
+    <div class="tour-grid">
+      <div>
+        <span class="eyebrow">Tour 2026</span>
+        <h2>Kde nás potkáš</h2>
+        <ul class="event-list" id="eventList"></ul>
+        <p class="tour-note">* TERMÍNY SE UPRAVUJÍ V SEZNAMU <span style="letter-spacing:0">EVENTS</span> PŘÍMO V KÓDU — PROBĚHLÉ AKCE SE ŠKRTAJÍ SAMY</p>
+        <p class="tour-ig"><a class="btn" href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">Sleduj @burgerbycrew</a></p>
+      </div>
+      <div class="photo-frame tour-photo">
+        <img src="assets/foto2-baleni.jpg" alt="Balení smash burgeru za barem" loading="lazy" decoding="async">
+      </div>
+    </div>
   </div>
 </section>
 
@@ -687,7 +697,9 @@
       <div class="photo-frame"><img src="assets/foto2-mega-burger.jpg" alt="Mega smash burger zblízka" loading="lazy" decoding="async"></div>
       <div class="photo-frame"><img src="assets/foto2-okenko.jpg" alt="Šéf kuchyně ve výdejním okénku s hranolkami" loading="lazy" decoding="async"></div>
       <div class="photo-frame"><img src="assets/foto2-modelka.jpg" alt="Spokojená zákaznice s burgerem" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto2-gril-smash.jpg" alt="Smash press a patties s čedarem na grilu" loading="lazy" decoding="async"></div>
       <div class="photo-frame"><img src="assets/foto2-skladani.jpg" alt="Skládání smash burgeru na brandovém papíru" loading="lazy" decoding="async"></div>
+      <div class="photo-frame"><img src="assets/foto2-bar-neon.jpg" alt="Za barem restaurace BBCREW s fialovým neonem" loading="lazy" decoding="async"></div>
       <div class="photo-frame"><img src="assets/foto2-hranolky-sef.jpg" alt="Kuchař podává hranolky pod výdejní lampou" loading="lazy" decoding="async"></div>
     </div>
     <p class="gallery-cta"><a class="link-ig" href="https://instagram.com/burgerbycrew" target="_blank" rel="noopener">Víc na Instagramu →</a></p>
@@ -927,6 +939,11 @@
     var nextMarked = false;
     var upcoming = sorted.filter(function(e){ return e.date >= today; });
     var past = sorted.filter(function(e){ return e.date < today; }).reverse();
+    if (!upcoming.length){
+      var li0 = document.createElement('li');
+      li0.innerHTML = '<span>Žádná akce v plánu — najdeš nás každý den v restauraci v Karlíně 🍔</span><span class="place"><a href="#catering" style="text-decoration:none">REZERVUJ STŮL</a></span>';
+      list.appendChild(li0);
+    }
     upcoming.concat(past).forEach(function(ev){
       var isPast = ev.date < today;
       var li = document.createElement('li');
