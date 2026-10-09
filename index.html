@@ -118,7 +118,23 @@
   .hero-media{position:absolute;inset:0;z-index:0}
   .hero-media video{width:100%;height:100%;object-fit:cover}
   .hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(94,23,235,.55), rgba(94,23,235,.8))}
-  .hero h1,.hero .tagline,.hero .ctas,.hero .sticker{position:relative;z-index:1}
+  .hero h1,.hero .tagline,.hero .ctas,.hero .sticker,.hero .hero-hours{position:relative;z-index:1}
+  .hero-hours{
+    font-family:var(--mono);
+    font-size:clamp(.68rem,1.8vw,.82rem);
+    font-weight:600;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    margin-top:2.4rem;
+    display:inline-flex;
+    align-items:center;
+    gap:.6em;
+    padding:.65rem 1.4rem;
+    border-radius:999px;
+    background:rgba(23,18,31,.45);
+    color:var(--offwhite);
+  }
+  .hero-hours b{color:var(--cheese);font-weight:600}
   .hero h1{
     font-family:var(--display);
     font-size:clamp(4rem,17vw,13rem);
@@ -550,6 +566,7 @@
     <a class="btn" href="#catering">Rezervuj stůl</a>
     <a class="btn" href="#tour">Kde nás potkáš</a>
   </div>
+  <p class="hero-hours">🕐 <b>Út–Pá 10–22</b> · <b>So–Ne 12–22</b> · Po zavřeno · Karlín, Sokolova 720/7</p>
 </header>
 
 <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span><span>Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew · Smashed in Prague · BBCREW · Burger by Crew ·&nbsp;</span></div></div>
@@ -592,6 +609,7 @@
           <li><span class="mi">Jalapeños</span><span class="dots"></span><span class="mp">25</span></li>
           <li><span class="mi">Cucumber</span><span class="dots"></span><span class="mp">25</span></li>
           <li><span class="mi">Onion</span><span class="dots"></span><span class="mp">15</span></li>
+          <li><span class="mi">Kimchi</span><span class="dots"></span><span class="mp">30</span></li>
         </ul>
         <h3 class="mcat">Sauce</h3>
         <ul class="mlist">
@@ -608,11 +626,12 @@
           <li><span class="mi">Fries</span><span class="dots"></span><span class="mp">90</span></li>
           <li><span class="mi">BBCREW cabbage</span><span class="dots"></span><span class="mp">65</span></li>
           <li><span class="mi">Cucumber salad</span><span class="dots"></span><span class="mp">80</span></li>
+          <li><span class="mi">Kimchi</span><span class="dots"></span><span class="mp">90</span></li>
         </ul>
         <h3 class="mcat">Pivo</h3>
         <ul class="mlist">
-          <li><span class="mi">Plzeň <small>0,4 l</small></span><span class="dots"></span><span class="mp">59</span></li>
-          <li><span class="mi">Plzeň šnyt</span><span class="dots"></span><span class="mp">44</span></li>
+          <li><span class="mi">Plzeň <small>0,4 l</small></span><span class="dots"></span><span class="mp">63</span></li>
+          <li><span class="mi">Plzeň šnyt</span><span class="dots"></span><span class="mp">48</span></li>
           <li><span class="mi">Pomelo grep <small>0,4 l</small></span><span class="dots"></span><span class="mp">50</span></li>
         </ul>
         <h3 class="mcat">Non alco</h3>
@@ -622,7 +641,7 @@
           <li><span class="mi">Lemonade <small>0,3 l</small></span><span class="dots"></span><span class="mp">85</span></li>
           <li><span class="mi">Ice tea <small>0,3 l</small></span><span class="dots"></span><span class="mp">95</span></li>
           <li><span class="mi">Water</span><span class="dots"></span><span class="mp">59</span></li>
-          <li><span class="mi">Water carafe</span><span class="dots"></span><span class="mp">44</span></li>
+          <li><span class="mi">Water carafe</span><span class="dots"></span><span class="mp">35</span></li>
         </ul>
         <h3 class="mcat">Coffee</h3>
         <ul class="mlist">
